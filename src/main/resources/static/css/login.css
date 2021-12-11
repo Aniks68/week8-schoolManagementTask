@@ -1,0 +1,227 @@
+/* Master styles */
+body {
+    font-family: "Grenze", sans-serif;
+    margin: 0px;
+    background-image: linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.8)), url(https://images.unsplash.com/photo-1495727034151-8fdc73e332a8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1465&q=80);
+    /* rgba is remarkable because it also sets the  degree of intensity*/
+    height: 100vh;
+    /* vh begins counting from the bottom of the image and moves upwards as the vh increases */
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+/* Navbar styles */
+.nav-wrapper {
+    display: flex; /* Would completely place outer nested divs side by side, regardless of their nested child divs */
+    justify-content: space-between; /* Would justify the major divs fully within the space available */
+    padding: 38px;
+}
+
+.left-side {
+    display: flex;
+
+}
+
+.nav-wrapper > .left-side > div{
+    margin-right: 20px;
+    font-size: 0.9em;
+    text-transform: uppercase;
+}
+
+.brand {
+    font-size: 1.2em;
+    text-transform: uppercase;
+    color: rgb(153, 137, 49);
+}
+
+.nav-link-wrapper {
+    height: 22px;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 0.5s;
+}
+
+.nav-link-wrapper a {
+    color: gray;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+.nav-link-wrapper:hover {
+    border-bottom: 1px solid rgb(153, 137, 49);
+}
+
+.nav-link-wrapper a:hover {
+    color: black;
+}
+
+.active-nav-link {
+    border-bottom: 1px solid rgb(153, 137, 49);
+}
+
+.active-nav-link a {
+    color: rgb(153, 137, 49) !important;
+}
+
+/* Portfolio styles */
+.portfolio-items-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.portfolio-item-wrapper {
+    position: relative; /* Allows flexibility in how to position elements for actions like superimposition, etc */
+}
+
+.portfolio-img-background {
+    height: 350px;
+    width: 100%;
+    background-size: cover; /* Allows all image have the same cover size */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.img-text-wrapper {
+    position: absolute; /* The presence of this means that we must a 'position-relative' in the first place. */
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.logo-wrapper img{
+    width:20%;
+    margin-bottom: 20px;
+}
+
+/* Needs to be more specific with selector */
+.img-text-wrapper .subtitle {
+    transition: 1s;
+    font-weight: 600;
+    color: transparent;
+}
+
+.img-text-wrapper:hover .subtitle {
+    font-weight: 600;
+    color: rgb(153, 137, 49);
+}
+
+.img-darken {
+    transition: 1s;
+    filter: brightness(10%);
+}
+
+/* About page styles */
+.two-column-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.profile-image-wrapper img {
+    width: 100%;
+    padding: 2%
+}
+
+.profile-content-wrapper {
+    padding:30px;
+}
+
+.profile-content-wrapper h1 {
+    color: rgb(153, 137, 49);
+}
+
+.profile-content-wrapper {
+    color: rgba(73, 102, 109, 1.9);
+}
+
+/* Login styles */
+.login-form  #user_error,
+.login-form  #pass_error,
+.register-form  #new_pass,
+.register-form  #new_mail,
+.register-form  #new_user {
+    margin-top: 5px;
+    width: 245px;
+    font-size: 18px;
+    color: red;
+    background: rgba(255, 0, 0, 0.1);
+    text-align: center;
+    padding: 5px 8px;
+    border-radius: 3px;
+    border: 1px solid #ef9a9a;
+    display: none
+}
+
+.login-page {
+    width: 360px;
+    padding: 10% 0 0;
+    margin: auto;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(208, 214, 216, 0.4);
+    max-width: 360px;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.form a{
+    color: rgb(153, 137, 49);
+}
+
+.form input{
+    font-family: 'Grenze', sans-serif;
+    outline: 1;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.form button{
+    font-family: 'Grenze', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    outline: 0;
+    background: rgb(153, 137, 49);
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: black;
+    cursor: pointer;
+}
+
+.form button:hover, .form button:active{
+    background: rgb(110, 117, 41);
+}
+
+.form a:hover, .form a:active{
+    color: rgb(110, 117, 41);
+}
+
+.form .message {
+    margin: auto;
+    font-size: 14px;
+    font-family: 'Grenze', sans-serif;
+    padding: 15px 15px 15px 15px;
+}
+
+.form .register-form{
+    display: none;
+}

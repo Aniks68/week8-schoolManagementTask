@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css?family=Grenze&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+
+</head>
+<body>
+<div class="container">
+    <div class="nav-wrapper">
+
+        <div class="right-side">
+            <div class="brand">
+                <div>ECST</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="login-page">
+            <div class="form">
+                <form class="register-form" action="http://localhost:3000/users" method="POST">
+                    <input autocomplete="off" id="newuser" type="text" placeholder="Username"/>
+                    <div id="new_user">Enter your desired username</div><br>
+                    <input autocomplete="off" id="newmail" type="text" placeholder="Email Address"/>
+                    <div id="new_mail">Input your Email</div><br>
+                    <input autocomplete="off" id="newpass" type="password" placeholder="Password"/>
+                    <div id="new_pass">Choose a password greater than 8 characters</div><br>
+                    <button id="add-newuser" type="submit">Create User</button>
+                    <br>
+                    <p class="message">Already Registered? <a href="#">Login</a></p>
+                    <br><br>
+                </form>
+
+                <form class="login-form" onsubmit="" action="/index.html" id="form">
+                    <p id="message" class=""></p>
+                    <input autocomplete="off" type="text" placeholder="Username" id="aduser">
+                    <div id="user_error">Please fill in your username</div><br>
+                    <input autocomplete="off" type="password" placeholder="Password" id="adpass">
+                    <div id="pass_error">Please fill in your password</div><br>
+                    <button id="adlogin" type="submit">Login</button>
+                    <br>
+                    <p class="message">Not Registered? <a href="#">Create new user</a></p>
+                </form>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+        <script>
+            $('.message a').click(function() {
+                console.log('It clicked!');
+                $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+            });
+        </script>
+    </div>
+</div>
+<script src="/web.js"></script>
+</body>
+</html>
