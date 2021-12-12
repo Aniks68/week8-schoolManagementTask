@@ -5,16 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Staff extends Person{
+public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +23,9 @@ public class Staff extends Person{
     private String email;
     private String password;
     private Position position;
+    private String jobDescription;
     private int salary;
+    private String status = "Active";
 
     public String formatString(String name) {
         String raw = name;

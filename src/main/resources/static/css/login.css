@@ -161,6 +161,43 @@ body {
     display: none
 }
 
+.fields input {
+    border: none;
+    outline:none;
+    background: none;
+    font-size: 18px;
+    color: #555;
+    padding:8px 10px 8px 5px;
+}
+.username, .password, .email {
+    margin-bottom: 30px;
+    border-radius: 15px;
+    box-shadow: inset 8px 8px 8px #cbced1,
+    inset -8px -8px 8px #ffffff;
+}
+
+.lastName {
+    padding: 5px 5px 5px 5px;
+    font-family: inherit;
+    width: 120px;
+    height: 40px;
+    margin-bottom: 15px;
+}
+
+.lastName, .firstName {
+    display: flex;
+    align-items: center;
+}
+.fields {
+    width: 100%;
+    /* padding: 35px 5px 5px 5px; */
+}
+.fields .password{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
 .login-page {
     width: 360px;
     padding: 10% 0 0;
