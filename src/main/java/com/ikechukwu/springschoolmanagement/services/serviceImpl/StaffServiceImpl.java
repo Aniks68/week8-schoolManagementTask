@@ -24,10 +24,18 @@ public class StaffServiceImpl implements StaffService {
                 .orElse(null);
     }
 
+    @Override
+    public Staff regAuthenticate(String email) {
+        return staffRepository.findFirstByEmail(email)
+                .orElse(null);
+    }
+
+    @Override
     public Staff getStaff(Long id) {
         return staffRepository.getById(id);
     }
 
+    @Override
     public void deleteStaff(Staff staff) {
         staff.setStatus("Inactive");
         staffRepository.save(staff);

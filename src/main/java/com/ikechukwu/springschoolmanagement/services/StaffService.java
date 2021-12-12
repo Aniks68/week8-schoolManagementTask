@@ -6,4 +6,10 @@ public interface StaffService {
     Staff saveUser(Staff staff);
 
     Staff authenticate(String email, String password);
+
+    Staff regAuthenticate(String email);
+
+    Staff getStaff(Long id);
+
+    void deleteStaff(Staff staff);
 }

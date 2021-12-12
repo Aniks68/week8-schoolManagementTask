@@ -204,7 +204,17 @@ body {
     margin: auto;
 }
 
-.form {
+.form .login-form {
+    position: relative;
+    z-index: 1;
+    background-color: rgba(208, 214, 216, 0.4);
+    max-width: 360px;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.form .register-form {
     position: relative;
     z-index: 1;
     background-color: rgba(208, 214, 216, 0.4);
@@ -259,6 +269,6 @@ body {
     padding: 15px 15px 15px 15px;
 }
 
-.form .register-form{
-    display: none;
-}
+/*.form .register-form{*/
+/*    display: none;*/
+/*}*/

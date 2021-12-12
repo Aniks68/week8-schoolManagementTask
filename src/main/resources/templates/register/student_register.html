@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Page</title>
+    <title>Student Registration</title>
     <link href="https://fonts.googleapis.com/css?family=Grenze&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/login.css">
 
@@ -13,7 +13,7 @@
 
         <div class="right-side">
             <div class="brand">
-                <div>ECST</div>
+                <div><a href="/" style="color: #f1c50e;">ECST</a></div>
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="content-wrapper">
         <div class="login-page">
             <div class="form">
-                <form class="register-form" action="/registerStaff" method="POST">
+                <form class="register-form" action="/registerStudent" method="POST">
                     <input autocomplete="off" id="newuser" type="text" name="firstname" placeholder="First name" required/>
                     <input autocomplete="off" id="newpass" type="text" name="lastname" placeholder="Last name" required/>
                     <input autocomplete="off" id="newpass" type="text" name="address" placeholder="Address" required/>
@@ -30,18 +30,14 @@
                     <div class="fields name">
                         <div class="firstName"><i class="fas fa-calendar"></i><input class="date" placeholder="Enter BirthDay" type="date" name="dob" pattern=" enter BirthDay \d{4}-\d{2}-\d{2}" required>                    </div>
                         <!-- <div class="lastName"><i class="fas fa-user"></i><input type="text" name="lastName" id="lastName" placeholder="Last Name"></div> -->
-                        <select class="lastName" id="year" name="position" required>
-                            <option value="Undisclosed">Staff Position</option>
-                            <option value="PRINCIPAL">PRINCIPAL</option>
-                            <option value="VICE_PRINCIPAL">VICE-PRINCIPAL</option>
-                            <option value="BURSAR">BURSAR</option>
-                            <option value="SECRETARY">SECRETARY</option>
-                            <option value="TYPIST">TYPIST</option>
-                            <option value="DRIVER">DRIVER</option>
-                            <option value="CONDUCTRESS">CONDUCTRESS</option>
-                            <option value="CLEANER">CLEANER</option>
-                            <option value="TEACHER">TEACHER</option>
-                            <option value="SECURITY">SECURITY</option>
+                        <select class="lastName" id="year" name="grade" required>
+                            <option value="Undisclosed">GRADE</option>
+                            <option value="GRADE1">GRADE 1</option>
+                            <option value="GRADE2">GRADE 2</option>
+                            <option value="GRADE3">GRADE 3</option>
+                            <option value="GRADE4">GRADE 4</option>
+                            <option value="GRADE5">GRADE 5</option>
+                            <option value="GRADE6">GRADE 6</option>
                         </select>
 
                         <select class="lastName" id="year" name="gender" required>
@@ -50,22 +46,12 @@
                             <option value="Female">FEMALE</option>
                         </select>
                     </div>
-                    <button id="add-newuser" type="submit">Create User</button>
+                    <button id="add-newuser" type="submit">Create Student</button>
                     <br>
-                    <p class="message">Already Registered? <a href="#">Login</a></p>
+                    <!--                    <p class="message">Already Registered? <a href="#">Login</a></p>-->
                     <br><br>
                 </form>
 
-                <form class="login-form" onsubmit="" action="/index.html" id="form">
-                    <p id="message" class=""></p>
-                    <input autocomplete="off" type="text" placeholder="Username" id="aduser">
-                    <div id="user_error">Please fill in your username</div><br>
-                    <input autocomplete="off" type="password" placeholder="Password" id="adpass">
-                    <div id="pass_error">Please fill in your password</div><br>
-                    <button id="adlogin" type="submit">Login</button>
-                    <br>
-                    <p class="message">Not Registered? <a href="#">Create new user</a></p>
-                </form>
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

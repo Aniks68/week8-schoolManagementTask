@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Login</title>
+    <link href="https://fonts.googleapis.com/css?family=Grenze&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+
+</head>
+<body>
+<div class="container">
+    <div class="nav-wrapper">
+
+        <div class="right-side">
+            <div class="brand">
+                <div><a href="/" style="color: #f1c50e;">ECST</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="login-page">
+            <div class="form">
+
+                <form class="login-form" onsubmit="" action="/staffLogin" method="post" id="form">
+                    <p id="message" class=""></p>
+                    <input autocomplete="off" type="text" name="email" placeholder="Email" id="aduser">
+                    <div id="user_error">Please fill in your username</div><br>
+                    <input autocomplete="off" type="password" name="password" placeholder="Password" id="adpass">
+                    <div id="pass_error">Please fill in your password</div><br>
+                    <button id="adlogin" type="submit">Login</button>
+                    <br>
+<!--                    <p class="message">Not Registered? <a href="#">Create new user</a></p>-->
+                </form>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+        <script>
+            $('.message a').click(function() {
+                console.log('It clicked!');
+                $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+            });
+        </script>
+    </div>
+</div>
+<script src="/web.js"></script>
+</body>
+</html>

@@ -4,6 +4,7 @@ public enum Position {
     BURSAR(65000, "Finance management"),
     SECRETARY(50000, "Communications management between public and school"),
     TYPIST(30000, "Preparation of school documents"),
+    LIBRARIAN(30000, "Organise library books for school community"),
     DRIVER(40000, "Driving school bus"),
     CONDUCTRESS(37000, "Accompanying a driver to pick up and drop off students"),
     CLEANER(35000, "Sanitation of the school premises"),

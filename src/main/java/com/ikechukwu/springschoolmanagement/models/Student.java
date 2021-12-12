@@ -25,9 +25,11 @@ public class Student extends Person{
     private String address;
     private String email;
     private String password;
-    private static String behaviour;
+    private String dob;
+    private static String behaviour = "Fair";
     private static double sessionAverage;
     private Grade grade;
     private int gradeFee;
+    private String status = "Active";
 
 }
