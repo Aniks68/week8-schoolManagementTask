@@ -2,6 +2,8 @@ package com.ikechukwu.springschoolmanagement.controller;
 
 import com.ikechukwu.springschoolmanagement.models.Student;
 import com.ikechukwu.springschoolmanagement.services.serviceImpl.StudentServiceImpl;
+import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Service
-public class StudentController {
+@Controller
+public class StudentController implements ErrorController {
     private final StudentServiceImpl studentServiceImpl;
 
     public StudentController(StudentServiceImpl studentServiceImpl) {
@@ -40,26 +42,27 @@ public class StudentController {
     }
 
     @PostMapping("/registerApplicant")
-    public String getAppDash(@ModelAttribute Student user) {
+    public String getAppDash(@ModelAttribute Student user, Model model) {
         System.out.println("Registration request: " + user);
-        Student student = new Student();
+        Student applicant = new Student();
 
         if(studentServiceImpl.regAuth(user.getEmail()) == null) {
-            student.setFirstname(user.formatString(user.getFirstname()));
-            student.setLastname(user.formatString(user.getLastname()));
-            student.setAddress(user.getAddress());
-            student.setEmail(user.getEmail());
-            student.setGender(user.getGender());
-            student.setPassword(user.getPassword());
-            student.setDob(user.getDob());
-            student.setGrade(user.getGrade());
-            student.setGradeFee(student.getGrade().getGradeFee());
-            student.setApplyStatus("Student");
+            applicant.setFirstname(user.formatString(user.getFirstname()));
+            applicant.setLastname(user.formatString(user.getLastname()));
+            applicant.setAddress(user.getAddress());
+            applicant.setEmail(user.getEmail());
+            applicant.setGender(user.getGender());
+            applicant.setPassword(user.getPassword());
+            applicant.setDob(user.getDob());
+            applicant.setGrade(user.getGrade());
 
-            studentServiceImpl.saveStudent(student);
-            System.out.println("Student of id: " + student.getId() + ", has been registered.");
+            studentServiceImpl.saveStudent(applicant);
+            System.out.println("Applicant of id: " + applicant.getId() + ", has been registered.");
         }
-        return "redirect:/admin";
+        model.addAttribute("errorMessage", "Sorry, you're not a new applicant");
+        model.addAttribute("errorNotice", "RETURN TO LOGIN PAGE");
+        model.addAttribute("errorLink", "/appLogin");
+        return "error";
     }
 
     @RequestMapping("/error")

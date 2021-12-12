@@ -82,29 +82,18 @@ public class StaffController {
 
     @PostMapping("/registerStudent")
     public String getStudentPage(@ModelAttribute Student user) {
-        System.out.println("Registration request: " + user);
-        Student student = new Student();
-
-        if(studentServiceImpl.regAuth(user.getEmail()) == null) {
-            student.setFirstname(user.formatString(user.getFirstname()));
-            student.setLastname(user.formatString(user.getLastname()));
-            student.setAddress(user.getAddress());
-            student.setEmail(user.getEmail());
-            student.setGender(user.getGender());
-            student.setPassword(user.getPassword());
-            student.setGrade(user.getGrade());
-            student.setDob(user.getDob());
-            student.setGradeFee(student.getGrade().getGradeFee());
-            student.setApplyStatus("Student");
-
-            studentServiceImpl.saveStudent(student);
-            System.out.println("Student of id: " + student.getId() + ", has been registered.");
-        }
+        Student student = studentServiceImpl.regAuth(user.getEmail());
+         if (student != null) {
+             student.setGradeFee(student.getGrade().getGradeFee());
+             student.setApplyStatus("Student");
+             studentServiceImpl.saveStudent(student);
+             System.out.println(student.getFirstname() + " is now a student.");
+         }
         return "redirect:/admin";
     }
 
-    @GetMapping("/home")
-    public String getHome() {
-        return "home";
-    }
+//    @GetMapping("/home")
+//    public String getHome() {
+//        return "home";
+//    }
 }
