@@ -34,4 +34,9 @@ public class StudentServiceImpl implements StudentService {
         student.setStatus("Inactive");
         studentRepository.save(student);
     }
+
+    public Student authenticate(String email, String password) {
+        return studentRepository.findByEmailAndPassword(email, password)
+                .orElse(null);
+    }
 }

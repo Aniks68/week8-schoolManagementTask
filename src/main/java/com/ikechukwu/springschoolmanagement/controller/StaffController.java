@@ -21,9 +21,9 @@ public class StaffController {
         this.studentServiceImpl = studentServiceImpl;
     }
 
-    @GetMapping("/login")
-    public String getLoginPage() {
-        return "staff_login";
+    @GetMapping("/staffLogin")
+    public String getStaffLoginPage() {
+        return "login/staff_login";
     }
 
     @GetMapping("/admin")
@@ -95,10 +95,16 @@ public class StaffController {
             student.setGrade(user.getGrade());
             student.setDob(user.getDob());
             student.setGradeFee(student.getGrade().getGradeFee());
+            student.setApplyStatus("Student");
 
             studentServiceImpl.saveStudent(student);
             System.out.println("Student of id: " + student.getId() + ", has been registered.");
         }
         return "redirect:/admin";
+    }
+
+    @GetMapping("/home")
+    public String getHome() {
+        return "home";
     }
 }

@@ -30,6 +30,7 @@ public class Student extends Person{
     private static double sessionAverage;
     private Grade grade;
     private int gradeFee;
+    private String applyStatus = "Applicant";
     private String status = "Active";
 
 }

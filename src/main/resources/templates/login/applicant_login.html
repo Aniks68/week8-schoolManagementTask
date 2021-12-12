@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Staff Login</title>
+  <link href="https://fonts.googleapis.com/css?family=Grenze&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/login.css">
+
+</head>
+<body>
+<div class="container">
+  <div class="nav-wrapper">
+
+    <div class="right-side">
+      <div class="brand">
+        <div><a href="/" style="color: #f1c50e;">ECST</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <div class="login-page">
+      <div class="form">
+
+        <form class="register-form" action="/registerApplicant" method="POST" style="display: none">
+          <input autocomplete="off" id="newuser" type="text" name="firstname" placeholder="First name" required/>
+          <input autocomplete="off" id="newpass" type="text" name="lastname" placeholder="Last name" required/>
+          <input autocomplete="off" id="newpass" type="text" name="address" placeholder="Address" required/>
+          <input autocomplete="off" id="newmail" type="text" name="email" placeholder="Email Address" required/>
+          <input autocomplete="off" id="newpass" type="password" name="password" placeholder="Password" required/>
+          <div class="fields name">
+            <div class="firstName"><i class="fas fa-calendar"></i><input class="date" placeholder="Enter BirthDay" type="date" name="dob" pattern=" enter BirthDay \d{4}-\d{2}-\d{2}" required>                    </div>
+            <!-- <div class="lastName"><i class="fas fa-user"></i><input type="text" name="lastName" id="lastName" placeholder="Last Name"></div> -->
+            <select class="lastName" id="year" name="grade" required>
+              <option value="Undisclosed"> APPLICATION GRADE</option>
+              <option value="GRADE1">GRADE 1</option>
+              <option value="GRADE2">GRADE 2</option>
+              <option value="GRADE3">GRADE 3</option>
+              <option value="GRADE4">GRADE 4</option>
+              <option value="GRADE5">GRADE 5</option>
+              <option value="GRADE6">GRADE 6</option>
+            </select>
+
+            <select class="lastName" id="year" name="gender" required>
+              <option value="Undisclosed">Gender Option</option>
+              <option value="Male">MALE</option>
+              <option value="Female">FEMALE</option>
+            </select>
+          </div>
+          <button id="add-newuser" type="submit">Create Applicant</button>
+          <br>
+          <!--                    <p class="message">Already Registered? <a href="#">Login</a></p>-->
+          <br><br>
+        </form>
+
+        <form class="login-form" onsubmit="" action="/applicantLogin" method="post" id="form">
+          <p id="message" class=""></p>
+          <input autocomplete="off" type="text" name="email" placeholder="Email" id="aduser">
+          <div id="user_error">Please fill in your username</div><br>
+          <input autocomplete="off" type="password" name="password" placeholder="Password" id="adpass">
+          <div id="pass_error">Please fill in your password</div><br>
+          <button id="adlogin" type="submit">Login</button>
+          <br>
+          <!--                    <p class="message">Not Registered? <a href="#">Create new user</a></p>-->
+        </form>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <script>
+      $('.message a').click(function() {
+        console.log('It clicked!');
+        $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+      });
+    </script>
+  </div>
+</div>
+<script src="/web.js"></script>
+</body>
+</html>
