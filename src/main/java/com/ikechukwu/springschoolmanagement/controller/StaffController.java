@@ -2,14 +2,14 @@ package com.ikechukwu.springschoolmanagement.controller;
 
 import com.ikechukwu.springschoolmanagement.enums.Position;
 import com.ikechukwu.springschoolmanagement.models.Staff;
-import com.ikechukwu.springschoolmanagement.models.Student;
 import com.ikechukwu.springschoolmanagement.services.serviceImpl.StaffServiceImpl;
 import com.ikechukwu.springschoolmanagement.services.serviceImpl.StudentServiceImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class StaffController {
@@ -23,77 +23,32 @@ public class StaffController {
 
     @GetMapping("/staffLogin")
     public String getStaffLoginPage() {
+        Staff admin = new Staff();
+//        admin.setFirstname("Ikechukwu"); admin.setLastname("Anene"); admin.setEmail("aniks@king.com");
+//        admin.setDob("28-11-1993"); admin.setPosition(Position.PRINCIPAL); admin.setJobDescription(Position.PRINCIPAL.getJobDescriptor());
+//        admin.setGender("Male"); admin.setAddress("Gbazango Extension"); admin.setSalary(Position.PRINCIPAL.getSalary());
+//        admin.setPassword("12345");
+//        staffServiceImpl.saveUser(admin);
         return "login/staff_login";
     }
 
-    @GetMapping("/admin")
-    public String getAdminPage() {
-        return "admin_page";
-    }
-
-    @GetMapping("/createStaff")
-    public String getStaffRegPage() {
-        return "register/staff_register";
-    }
-
     @PostMapping("/staffLogin")
-    public String getStaffDashboard(@ModelAttribute Staff user) {
+    public String getStaffDashboard(@ModelAttribute Staff user, HttpSession session) {
         System.out.println("Login request: " + user);
         Staff staff = staffServiceImpl.authenticate(user.getEmail(), user.getPassword());
         System.out.println("Logging Staff: " + staff);
-        if(staff.getJobDescription().equals("Staff and student organisation")) {
-            return "admin_page";
-        } else if (staff == null) {
-            return "redirect:/login";
+        if (staff == null) {
+            return "login/staff_login";
+        }
+        session.setAttribute("user", staff);
+        if(isAdmin(staff)) {
+            return "redirect:/admin";
         } else {
             return "staff_page";
         }
     }
 
-    @PostMapping("/registerStaff")
-    public String getStaffPage(@ModelAttribute Staff user, Model model) {
-        System.out.println("Registration request: " + user);
-        if(staffServiceImpl.regAuthenticate(user.getEmail()) == null) {
-            Staff staff = new Staff();
-            staff.setFirstname(user.formatString(user.getFirstname()));
-            staff.setLastname(user.formatString(user.getLastname()));
-            staff.setAddress(user.getAddress());
-            staff.setEmail(user.getEmail());
-            staff.setGender(user.getGender());
-            staff.setDob(user.getDob());
-            staff.setPassword(user.getPassword());
-            staff.setPosition(Position.valueOf(user.getPosition().toString()));
-            staff.setSalary(staff.getPosition().getSalary());
-            staff.setJobDescription(staff.getPosition().getJobDescriptor());
-
-            staffServiceImpl.saveUser(staff);
-            System.out.println("Staff of id: " + staff.getId() + ", has been registered.");
-        } else {
-            System.out.println("This staff already exist");
-        }
-
-        return "redirect:/admin";
+    private boolean isAdmin(Staff staff) {
+        return staff.getJobDescription().equals("Staff and student organisation") || staff.getJobDescription().equals("School Management");
     }
-
-    @GetMapping("/createStudent")
-    public String getStudentRegPage() {
-        return "register/student_register";
-    }
-
-    @PostMapping("/registerStudent")
-    public String getStudentPage(@ModelAttribute Student user) {
-        Student student = studentServiceImpl.regAuth(user.getEmail());
-         if (student != null) {
-             student.setGradeFee(student.getGrade().getGradeFee());
-             student.setApplyStatus("Student");
-             studentServiceImpl.saveStudent(student);
-             System.out.println(student.getFirstname() + " is now a student.");
-         }
-        return "redirect:/admin";
-    }
-
-//    @GetMapping("/home")
-//    public String getHome() {
-//        return "home";
-//    }
 }

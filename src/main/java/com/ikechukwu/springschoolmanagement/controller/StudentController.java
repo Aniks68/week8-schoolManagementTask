@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class StudentController implements ErrorController {
     private final StudentServiceImpl studentServiceImpl;
@@ -25,9 +27,10 @@ public class StudentController implements ErrorController {
     }
 
     @PostMapping("/studentLogin")
-    public String getStudentDash(@ModelAttribute Student user, Model model) {
+    public String getStudentDash(@ModelAttribute Student user, Model model, HttpSession session) {
         Student student = studentServiceImpl.authenticate(user.getEmail(), user.getPassword());
         if((student != null) && (student.getApplyStatus().equals("Student"))) {
+            session.setAttribute("user", student);
             return "student/student_page";
         }
         model.addAttribute("errorMessage", "Sorry, you're not a student");
@@ -42,7 +45,7 @@ public class StudentController implements ErrorController {
     }
 
     @PostMapping("/registerApplicant")
-    public String getAppDash(@ModelAttribute Student user, Model model) {
+    public String getApproval(@ModelAttribute Student user, Model model) {
         System.out.println("Registration request: " + user);
         Student applicant = new Student();
 
@@ -58,6 +61,7 @@ public class StudentController implements ErrorController {
 
             studentServiceImpl.saveStudent(applicant);
             System.out.println("Applicant of id: " + applicant.getId() + ", has been registered.");
+            return "redirect:/appLogin";
         }
         model.addAttribute("errorMessage", "Sorry, you're not a new applicant");
         model.addAttribute("errorNotice", "RETURN TO LOGIN PAGE");
@@ -65,12 +69,24 @@ public class StudentController implements ErrorController {
         return "error";
     }
 
+    @PostMapping("/applicantLogin")
+    public String getAppDash(@ModelAttribute Student user, Model model, HttpSession session) {
+        Student applicant = studentServiceImpl.authenticate(user.getEmail(), user.getPassword());
+        if ((applicant != null) && (applicant.getApplyStatus().equals("Applicant"))) {
+            session.setAttribute("user", applicant);
+            return "student/app_page";
+        }
+        model.addAttribute("errorMessage", "Sorry, you're not an applicant");
+        model.addAttribute("errorNotice", "RETURN TO HOME PAGE");
+        model.addAttribute("errorLink", "/");
+        return "error";
+    }
+
     @RequestMapping("/error")
     public String getDefaultError(Model model) {
-        String message = "You have entered a wrong URL";
-        model.addAttribute("errorMessage", message);
-        model.addAttribute("errorNotice", "RETURN TO DASHBOARD PAGE");
-        model.addAttribute("errorLink", "/dashboard");
+        model.addAttribute("errorMessage", "You have entered a wrong URL");
+        model.addAttribute("errorNotice", "RETURN TO HOME PAGE");
+        model.addAttribute("errorLink", "/");
         return "error";
     }
 }

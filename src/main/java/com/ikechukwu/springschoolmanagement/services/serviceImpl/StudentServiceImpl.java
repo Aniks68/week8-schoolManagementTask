@@ -5,6 +5,8 @@ import com.ikechukwu.springschoolmanagement.repository.StudentRepository;
 import com.ikechukwu.springschoolmanagement.services.StudentService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
@@ -38,5 +40,9 @@ public class StudentServiceImpl implements StudentService {
     public Student authenticate(String email, String password) {
         return studentRepository.findByEmailAndPassword(email, password)
                 .orElse(null);
+    }
+
+    public List<Student> getAll() {
+        return studentRepository.findAll();
     }
 }

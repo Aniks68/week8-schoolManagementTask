@@ -5,6 +5,8 @@ import com.ikechukwu.springschoolmanagement.repository.StaffRepository;
 import com.ikechukwu.springschoolmanagement.services.StaffService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StaffServiceImpl implements StaffService {
     private StaffRepository staffRepository;
@@ -39,5 +41,9 @@ public class StaffServiceImpl implements StaffService {
     public void deleteStaff(Staff staff) {
         staff.setStatus("Inactive");
         staffRepository.save(staff);
+    }
+
+    public List<Staff> getAllStaff() {
+        return staffRepository.findAll();
     }
 }

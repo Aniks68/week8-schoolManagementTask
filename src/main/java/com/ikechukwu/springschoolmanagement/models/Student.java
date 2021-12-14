@@ -26,11 +26,27 @@ public class Student extends Person{
     private String email;
     private String password;
     private String dob;
-    private static String behaviour = "Fair";
-    private static double sessionAverage;
+    private String behaviour = "Fair";
+    private double sessionAverage = 00.00;
     private Grade grade;
     private int gradeFee;
+    private int applyScore = 0;
     private String applyStatus = "Applicant";
-    private String status = "Active";
+    private String status = "ACTIVE";
 
+    public String formatString(String name) {
+        String raw = name;
+        String[] rawArr = raw.split("");
+        String finAns = "";
+
+        for (int i = 0; i < 1; i++) {
+            StringBuilder sb = new StringBuilder(rawArr[i]);
+            rawArr[i] = String.valueOf(sb).toUpperCase();
+        }
+
+        for(String el : rawArr) {
+            finAns+=el;
+        }
+        return finAns.trim();
+    }
 }

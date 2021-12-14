@@ -25,7 +25,7 @@ public class Staff {
     private Position position;
     private String jobDescription;
     private int salary;
-    private String status = "Active";
+    private String status = "ACTIVE";
 
     public String formatString(String name) {
         String raw = name;
@@ -42,4 +42,5 @@ public class Staff {
         }
         return finAns.trim();
     }
+
 }
