@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
+<section style="display: flex; justify-content: space-between; width: max-content; height: 15%"><div class="url"><a href="/" style="color: rgba(205,214,92,0.98);">ECST</a></div> <div class="url"><a href="/logout" style="color: #CDD65C;">LOGOUT</a></div></section>
 <div align="center">
   <h1 style="color: white">Applicant List</h1>
 <!--  <a th:href = "@{/createStaff}" class="btn btn-primary btn-sm mb-3"> Add Employee </a>-->
@@ -37,8 +38,8 @@
         <td th:text="${applicant.getApplyStatus()}"></td>
         <td th:text="${applicant.getEmail()}"></td>
         <td th:text="${applicant.getAddress()}"></td>
-        <td> <a th:href="@{/registerStudent/{id}(id=${applicant.getId()})}" class="btn btn-primary">Update</a>
-          <a th:href="@{/deleteApplicant/{id}(id=${applicant.getId()})}" class="btn btn-danger">Delete</a>
+        <td> <a th:href="@{/registerStudent/{id}(id=${applicant.getId()})}" class="btn btn-primary" style="background-color: #c6cf5c; color: black">Update</a>
+          <a th:href="@{/deleteApplicant/{id}(id=${applicant.getId()})}" class="btn btn-danger" style="background-color: #0d244b; border-color: #c6cf5c">Delete</a>
         </td>
       </div>
     </tr>

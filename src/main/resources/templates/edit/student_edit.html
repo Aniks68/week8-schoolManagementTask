@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Applicant Score Update</title>
+    <title>Student Details Update</title>
     <link href="https://fonts.googleapis.com/css?family=Grenze&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/login.css">
     <style>
@@ -298,12 +298,15 @@
         <div class="login-page">
             <div class="form">
 
-                <form class="login-form" onsubmit="" th:action="@{/updateScore/{id}(id=${applicant.getId()})}" th:object="${applicant}" method="post" id="form">
+                <form class="login-form" onsubmit="" th:action="@{/updateStudentDetails/{id}(id=${student.getId()})}" th:object="${student}" method="post" id="form">
                     <p id="message" class=""></p>
-                    <input autocomplete="off" type="number" name="applyScore" placeholder="Application Score" id="aduser">
-                    <button id="adlogin" type="submit">Update Score</button>
+                    <input autocomplete="off" type="text" th:field="*{firstname}" placeholder="First name" id="aduser" disabled>
+                    <input autocomplete="off" type="text" th:field="*{lastname}" placeholder="Last name" id="aduser" disabled>
+                    <input autocomplete="off" type="number" name="sessionAverage" placeholder= "Session Average" id="aduser" required>
+                    <input autocomplete="off" type="text" name="behaviour" placeholder= "Student Behaviour" id="aduser" required>
+                    <button id="adlogin" type="submit">Update Details</button>
                     <br>
-<!--                    <p class="message">Not Registered? <a href="#">Create new user</a></p>-->
+                    <!--                    <p class="message">Not Registered? <a href="#">Create new user</a></p>-->
                 </form>
             </div>
         </div>

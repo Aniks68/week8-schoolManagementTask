@@ -23,30 +23,25 @@
       <th>Last Name</th>
       <th>Grade</th>
       <th>Session Average</th>
-      <th>Email</th>
-      <th>Address</th>
+      <th>Behaviour</th>
       <th>Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="applicant : ${appList}">
-      <div th:if="${applicant.getApplyStatus()} == 'Student'">
-        <td th:text="${applicant.getFirstname()}"></td>
-        <td th:text="${applicant.getLastname()}"></td>
-        <td th:text="${applicant.getGrade()}"></td>
-        <td th:text="${applicant.getSessionAverage()}"></td>
-        <td th:text="${applicant.getEmail()}"></td>
-        <td th:text="${applicant.getAddress()}"></td>
-        <td> <a th:href="@{/updateStudentClass/{id}(id=${applicant.getId()})}" class="btn btn-primary" style="background-color: #c6cf5c; color: black">Promote</a>
-          <a th:href="@{/deleteApplicant/{id}(id=${applicant.getId()})}" class="btn btn-danger" style="background-color: #0d244b; border-color: #c6cf5c">Delete</a>
-          <div th:if="${applicant.getBehaviour()} == 'Terrible'"><a th:href="@{/deleteApplicant/{id}(id=${applicant.getId()})}" class="btn btn-danger" style="color: black; background-color: rgba(214,41,56,0.98); border-color: rgba(214,41,56,0.98)">Expel</a></div>
-        </td>
+    <tr th:each="student : ${students}">
+      <div th:if="${student.getApplyStatus()} == 'Student'">
+        <td th:text="${student.getFirstname()}"></td>
+        <td th:text="${student.getLastname()}"></td>
+        <td th:text="${student.getGrade()}"></td>
+        <td th:text="${student.getSessionAverage()}"></td>
+        <td th:text="${student.getBehaviour()}"></td>
+        <td> <a th:href="@{/updateStudentDetails/{id}(id=${student.getId()})}" class="btn btn-primary" style="background-color: #c6cf5c; color: black">Update Details</a></td>
       </div>
     </tr>
     </tbody>
   </table>
   <br> <br>
-  <h3 style="color: white; position: center"><a style="color: papayawhip" href="/admin">Home</a></h3>
+  <h3 style="color: white; position: center"><a style="color: papayawhip" href="/staffPage">Home</a></h3>
 </div>
 </body>
 </html>

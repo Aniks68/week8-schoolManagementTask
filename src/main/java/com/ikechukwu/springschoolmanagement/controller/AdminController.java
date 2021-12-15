@@ -1,5 +1,6 @@
 package com.ikechukwu.springschoolmanagement.controller;
 
+import com.ikechukwu.springschoolmanagement.enums.Grade;
 import com.ikechukwu.springschoolmanagement.enums.Position;
 import com.ikechukwu.springschoolmanagement.models.Staff;
 import com.ikechukwu.springschoolmanagement.models.Student;
@@ -53,16 +54,40 @@ public class AdminController {
         return "register/student_register";
     }
 
-    @GetMapping("/registerStudent/{id}")
+    @GetMapping("/updateStudentClass/{id}")
     public String getStudentPage(@PathVariable(value = "id") Long id) {
         Student student = studentServiceImpl.getStudent(id);
-         if (student != null && student.getApplyScore() >= 55) {
+         if (student != null && student.getSessionAverage() >= 55.00) {
+             System.out.println("Old Grade: " + student.getGrade());
+             Grade grade = student.getGrade();
+             Grade newGrade = null;
+
+             if (grade.equals(Grade.GRADE6)) {
+                 System.out.println("You're a graduate now!");
+                 studentServiceImpl.deleteStudent(student);
+             }
+
+             if(grade.equals(Grade.GRADE1)) {
+                 newGrade = Grade.GRADE2;
+             } else if (grade.equals(Grade.GRADE2)) {
+                 newGrade = Grade.GRADE3;
+             } else if (grade.equals(Grade.GRADE3)) {
+                 newGrade = Grade.GRADE4;
+             } else if (grade.equals(Grade.GRADE4)) {
+                 newGrade = Grade.GRADE5;
+             } else if (grade.equals(Grade.GRADE5)) {
+                 newGrade = Grade.GRADE6;
+             }
+             student.setGrade(newGrade);
+
+             System.out.println("New Grade: " + student.getGrade());
+
              student.setGradeFee(student.getGrade().getGradeFee());
              student.setApplyStatus("Student");
              studentServiceImpl.saveStudent(student);
-             System.out.println(student.getFirstname() + " is now a student.");
+
          }
-        return "redirect:/appList";
+        return "redirect:/studentList";
     }
 
     @GetMapping("/staffList")
@@ -86,6 +111,7 @@ public class AdminController {
         Staff admin = (Staff) session.getAttribute("user");
         if (staff != null && isAdmin(admin)) {
             model.addAttribute("staff", staff);
+
             return "edit/staff_edit";
         }
         model.addAttribute("errorMessage", "Wrong staff identity");
@@ -127,18 +153,30 @@ public class AdminController {
     }
 
     @GetMapping("/appList")
-    public String viewApplicants(Model model) {
-        getStudents(model);
-        return "list/applicant_list";
+    public String viewApplicants(Model model, HttpSession session) {
+        Staff admin = (Staff) session.getAttribute("user");
+        if (isAdmin(admin)) {
+            getStudents(model);
+            return "list/applicant_list";
+        }
+        model.addAttribute("errorMessage", "Sorry, you're not an admin");
+        model.addAttribute("errorNotice", "RETURN TO LOGIN PAGE");
+        model.addAttribute("errorLink", "/staffLogin");
+        return "error";
     }
 
     @GetMapping("/studentList")
-    public String viewStudents(Model model) {
-        getStudents(model);
-        return "list/applicant_list";
+    public String viewStudents(Model model, HttpSession session) {
+        Staff admin = (Staff) session.getAttribute("user");
+        if (isAdmin(admin)) {
+            getStudents(model);
+            return "list/student_list";
+        }
+        model.addAttribute("errorMessage", "Sorry, you're not an admin");
+        model.addAttribute("errorNotice", "RETURN TO LOGIN PAGE");
+        model.addAttribute("errorLink", "/staffLogin");
+        return "error";
     }
-
-
 
     private void getStudents(Model model) {
         Student applicant = new Student();

@@ -1,6 +1,5 @@
 package com.ikechukwu.springschoolmanagement.controller;
 
-import com.ikechukwu.springschoolmanagement.enums.Position;
 import com.ikechukwu.springschoolmanagement.models.Staff;
 import com.ikechukwu.springschoolmanagement.models.Student;
 import com.ikechukwu.springschoolmanagement.services.serviceImpl.StaffServiceImpl;
@@ -24,16 +23,11 @@ public class StaffController {
     @GetMapping("/staffLogin")
     public String getStaffLoginPage() {
         Staff admin = new Staff();
-//        admin.setFirstname("Ikechukwu"); admin.setLastname("Anene"); admin.setEmail("aniks@king.com");
-//        admin.setDob("28-11-1993"); admin.setPosition(Position.PRINCIPAL); admin.setJobDescription(Position.PRINCIPAL.getJobDescriptor());
-//        admin.setGender("Male"); admin.setAddress("Gbazango Extension"); admin.setSalary(Position.PRINCIPAL.getSalary());
-//        admin.setPassword("12345");
-//        staffServiceImpl.saveUser(admin);
         return "login/staff_login";
     }
 
     @PostMapping("/staffLogin")
-    public String getStaffDashboard(@ModelAttribute Staff user, HttpSession session, Model model) {
+    public String getStaffDashboard(@ModelAttribute Staff user, HttpSession session) {
         System.out.println("Login request: " + user);
         Staff staff = staffServiceImpl.authenticate(user.getEmail(), user.getPassword());
         System.out.println("Logging Staff: " + staff);
@@ -44,19 +38,21 @@ public class StaffController {
         if(isAdmin(staff)) {
             return "redirect:/admin";
         } else {
-            Student applicant = new Student();
-            model.addAttribute("appList", studentServiceImpl.getAll());
-            model.addAttribute("applicant", applicant);
-            return "staff_page";
+            return "redirect:/staffPage";
         }
     }
 
     @GetMapping("/staffPage")
-    public String getStaffPage(Model model) {
+    public String getStaffDash() {
+        return "staff_dash";
+    }
+
+    @GetMapping("/viewApplicants")
+    public String getStaffApp(Model model) {
         Student applicant = new Student();
         model.addAttribute("appList", studentServiceImpl.getAll());
         model.addAttribute("applicant", applicant);
-        return "staff_page";
+        return "student/staff_applicant";
     }
 
     @GetMapping("/updateScore/{id}")
@@ -79,6 +75,35 @@ public class StaffController {
             System.out.println("Score of " + applicant.getApplyScore() + " was added.");
         }
         return "redirect:/staffPage";
+    }
+
+    @GetMapping("/viewStudents")
+    public String getStaffStudents(Model model) {
+        Student student = new Student();
+        model.addAttribute("students", studentServiceImpl.getAll());
+        model.addAttribute("student", student);
+        return "student/staff_student";
+    }
+
+    @GetMapping("/updateStudentDetails/{id}")
+    public String getDetailsUpdate(@PathVariable (value = "id") Long id, Model model) {
+        Student student = (Student) studentServiceImpl.getStudent(id);
+        if(student != null) {
+            model.addAttribute("student", student);
+            return "edit/student_edit";
+        }
+        return "redirect:/staffPage";
+    }
+
+    @PostMapping("/updateStudentDetails/{id}")
+    public String seeUpdates(@PathVariable (value = "id") Long id, @RequestParam (value = "sessionAverage") double average, @RequestParam (value = "behaviour") String behaviour) {
+        Student student = studentServiceImpl.getStudent(id);
+        if (student != null) {
+            student.setBehaviour(behaviour);
+            student.setSessionAverage(average);
+            studentServiceImpl.saveStudent(student);
+        }
+        return "redirect:/viewStudents";
     }
 
     private boolean isAdmin(Staff staff) {

@@ -82,6 +82,12 @@ public class StudentController implements ErrorController {
         return "error";
     }
 
+    @GetMapping("/logout")
+    public String logoutUser(HttpSession session) {
+        session.invalidate();
+        return "login/student_login";
+    }
+
     @RequestMapping("/error")
     public String getDefaultError(Model model) {
         model.addAttribute("errorMessage", "You have entered a wrong URL");

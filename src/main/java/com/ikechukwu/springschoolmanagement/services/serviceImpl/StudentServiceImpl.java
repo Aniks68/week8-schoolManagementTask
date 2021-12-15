@@ -33,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void deleteStudent(Student student) {
-        student.setStatus("Inactive");
+        student.setStatus("INACTIVE");
         studentRepository.save(student);
     }
 
