@@ -53,7 +53,7 @@ public class AdminController {
         return "register/student_register";
     }
 
-    @PostMapping("/registerStudent/{id}")
+    @GetMapping("/registerStudent/{id}")
     public String getStudentPage(@PathVariable(value = "id") Long id) {
         Student student = studentServiceImpl.getStudent(id);
          if (student != null && student.getApplyScore() >= 55) {

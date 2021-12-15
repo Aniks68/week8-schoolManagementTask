@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Applicant Score Update</title>
+    <link href="https://fonts.googleapis.com/css?family=Grenze&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/login.css">
+
+</head>
+<body>
+<div class="container">
+    <div class="nav-wrapper">
+
+        <div class="right-side">
+            <div class="brand">
+                <div><a href="/" style="color: #f1c50e;">ECST</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="login-page">
+            <div class="form">
+
+                <form class="login-form" onsubmit="" th:action="@{/updateScore/{id}(id=${applicant.getId()})}" th:object="${applicant}" method="post" id="form">
+                    <p id="message" class=""></p>
+                    <input autocomplete="off" type="number" name="applyScore" placeholder="Application Score" id="aduser">
+                    <button id="adlogin" type="submit">Update Score</button>
+                    <br>
+<!--                    <p class="message">Not Registered? <a href="#">Create new user</a></p>-->
+                </form>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+        <script>
+            $('.message a').click(function() {
+                console.log('It clicked!');
+                $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+            });
+        </script>
+    </div>
+</div>
+<script src="/web.js"></script>
+</body>
+</html>

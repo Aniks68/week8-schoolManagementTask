@@ -2,12 +2,12 @@ package com.ikechukwu.springschoolmanagement.controller;
 
 import com.ikechukwu.springschoolmanagement.enums.Position;
 import com.ikechukwu.springschoolmanagement.models.Staff;
+import com.ikechukwu.springschoolmanagement.models.Student;
 import com.ikechukwu.springschoolmanagement.services.serviceImpl.StaffServiceImpl;
 import com.ikechukwu.springschoolmanagement.services.serviceImpl.StudentServiceImpl;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,7 +33,7 @@ public class StaffController {
     }
 
     @PostMapping("/staffLogin")
-    public String getStaffDashboard(@ModelAttribute Staff user, HttpSession session) {
+    public String getStaffDashboard(@ModelAttribute Staff user, HttpSession session, Model model) {
         System.out.println("Login request: " + user);
         Staff staff = staffServiceImpl.authenticate(user.getEmail(), user.getPassword());
         System.out.println("Logging Staff: " + staff);
@@ -44,8 +44,41 @@ public class StaffController {
         if(isAdmin(staff)) {
             return "redirect:/admin";
         } else {
+            Student applicant = new Student();
+            model.addAttribute("appList", studentServiceImpl.getAll());
+            model.addAttribute("applicant", applicant);
             return "staff_page";
         }
+    }
+
+    @GetMapping("/staffPage")
+    public String getStaffPage(Model model) {
+        Student applicant = new Student();
+        model.addAttribute("appList", studentServiceImpl.getAll());
+        model.addAttribute("applicant", applicant);
+        return "staff_page";
+    }
+
+    @GetMapping("/updateScore/{id}")
+    public String getScorePage(@PathVariable (value = "id") Long id, Model model) {
+        Student applicant = studentServiceImpl.getStudent(id);
+        if(applicant != null) {
+            model.addAttribute("applicant", applicant);
+            return "edit/app_edit";
+        }
+        return "redirect:/staffPage";
+    }
+
+    @PostMapping("/updateScore/{id}")
+    public String getScoreUpdate(@PathVariable (value = "id") Long id, @RequestParam (value = "applyScore") int score) {
+        Student applicant = studentServiceImpl.getStudent(id);
+
+        if (applicant != null && applicant.getApplyStatus().equals("Applicant")) {
+            applicant.setApplyScore(score);
+            studentServiceImpl.saveStudent(applicant);
+            System.out.println("Score of " + applicant.getApplyScore() + " was added.");
+        }
+        return "redirect:/staffPage";
     }
 
     private boolean isAdmin(Staff staff) {
