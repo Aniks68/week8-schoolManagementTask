@@ -49,47 +49,6 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/createStudent")
-    public String getStudentRegPage() {
-        return "register/student_register";
-    }
-
-    @GetMapping("/updateStudentClass/{id}")
-    public String getStudentPage(@PathVariable(value = "id") Long id) {
-        Student student = studentServiceImpl.getStudent(id);
-         if (student != null && student.getSessionAverage() >= 55.00) {
-             System.out.println("Old Grade: " + student.getGrade());
-             Grade grade = student.getGrade();
-             Grade newGrade = null;
-
-             if (grade.equals(Grade.GRADE6)) {
-                 System.out.println("You're a graduate now!");
-                 studentServiceImpl.deleteStudent(student);
-             }
-
-             if(grade.equals(Grade.GRADE1)) {
-                 newGrade = Grade.GRADE2;
-             } else if (grade.equals(Grade.GRADE2)) {
-                 newGrade = Grade.GRADE3;
-             } else if (grade.equals(Grade.GRADE3)) {
-                 newGrade = Grade.GRADE4;
-             } else if (grade.equals(Grade.GRADE4)) {
-                 newGrade = Grade.GRADE5;
-             } else if (grade.equals(Grade.GRADE5)) {
-                 newGrade = Grade.GRADE6;
-             }
-             student.setGrade(newGrade);
-
-             System.out.println("New Grade: " + student.getGrade());
-
-             student.setGradeFee(student.getGrade().getGradeFee());
-             student.setApplyStatus("Student");
-             studentServiceImpl.saveStudent(student);
-
-         }
-        return "redirect:/studentList";
-    }
-
     @GetMapping("/staffList")
     public String viewStaffBody(Model model, HttpSession session) {
         Staff admin = (Staff) session.getAttribute("user");
@@ -149,7 +108,58 @@ public class AdminController {
         if(isAdmin(admin) && staff != null) {
             staffServiceImpl.deleteStaff(staff);
         }
-        return "list/staff_list";
+        return "redirect:/staffList";
+    }
+
+    /*  Controller settings for applicants and students */
+    @GetMapping("/createStudent")
+    public String getStudentRegPage() {
+        return "register/student_register";
+    }
+
+    @GetMapping("/updateStudentClass/{id}")
+    public String getStudentPage(@PathVariable(value = "id") Long id) {
+        Student student = studentServiceImpl.getStudent(id);
+         if (student != null && student.getSessionAverage() >= 55.00) {
+             System.out.println("Old Grade: " + student.getGrade());
+             Grade grade = student.getGrade();
+             Grade newGrade = null;
+
+             if (grade.equals(Grade.GRADE6)) {
+                 System.out.println("You're a graduate now!");
+                 studentServiceImpl.deleteStudent(student);
+             }
+
+             if(grade.equals(Grade.GRADE1)) {
+                 newGrade = Grade.GRADE2;
+             } else if (grade.equals(Grade.GRADE2)) {
+                 newGrade = Grade.GRADE3;
+             } else if (grade.equals(Grade.GRADE3)) {
+                 newGrade = Grade.GRADE4;
+             } else if (grade.equals(Grade.GRADE4)) {
+                 newGrade = Grade.GRADE5;
+             } else if (grade.equals(Grade.GRADE5)) {
+                 newGrade = Grade.GRADE6;
+             }
+             student.setGrade(newGrade);
+
+             System.out.println("New Grade: " + student.getGrade());
+
+             student.setGradeFee(student.getGrade().getGradeFee());
+             student.setApplyStatus("Student");
+             studentServiceImpl.saveStudent(student);
+
+         }
+        return "redirect:/studentList";
+    }
+
+    @GetMapping("/deleteApplicant/{id}")
+    public String punishStudent(@PathVariable(value = "id") Long id) {
+        Student student = studentServiceImpl.getStudent(id);
+        if(student != null) {
+            studentServiceImpl.deleteStudent(student);
+        }
+        return "redirect:/studentList";
     }
 
     @GetMapping("/appList")

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>List of Students</title>
+  <title>List of Students`</title>
   <link rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -30,7 +30,7 @@
     </thead>
     <tbody>
     <tr th:each="applicant : ${appList}">
-      <div th:if="${applicant.getApplyStatus()} == 'Student'">
+      <div th:if="${applicant.getApplyStatus()} == 'Student' && ${applicant.getStatus()} != 'INACTIVE'">
         <td th:text="${applicant.getFirstname()}"></td>
         <td th:text="${applicant.getLastname()}"></td>
         <td th:text="${applicant.getGrade()}"></td>

@@ -30,16 +30,18 @@
             </thead>
             <tbody>
                 <tr th:each="staff : ${staffList}">
-                    <td th:text="${staff.getFirstname()}"></td>
-                    <td th:text="${staff.getLastname()}"></td>
-                    <td th:text="${staff.getPosition()}"></td>
-                    <td th:text="${staff.getPosition().getJobDescriptor()}"></td>
-                    <td th:text="${staff.getPosition().getSalary()}"></td>
-                    <td th:text="${staff.getEmail()}"></td>
-                    <td th:text="${staff.getAddress()}"></td>
-                    <td> <a th:href="@{/showFormForUpdate/{id}(id=${staff.id})}" class="btn btn-primary" style="background-color: #c6cf5c; color: black">Update</a>
-                        <a th:href="@{/deleteStaff/{id}(id=${staff.id})}" class="btn btn-danger" style="background-color: #0d244b; border-color: #c6cf5c">Delete</a>
-                    </td>
+                    <div th:if="${staff.getStatus()} != 'INACTIVE'">
+                        <td th:text="${staff.getFirstname()}"></td>
+                        <td th:text="${staff.getLastname()}"></td>
+                        <td th:text="${staff.getPosition()}"></td>
+                        <td th:text="${staff.getPosition().getJobDescriptor()}"></td>
+                        <td th:text="${staff.getPosition().getSalary()}"></td>
+                        <td th:text="${staff.getEmail()}"></td>
+                        <td th:text="${staff.getAddress()}"></td>
+                        <td> <a th:href="@{/showFormForUpdate/{id}(id=${staff.id})}" class="btn btn-primary" style="background-color: #c6cf5c; color: black">Update</a>
+                            <a th:href="@{/deleteStaff/{id}(id=${staff.id})}" class="btn btn-danger" style="background-color: #0d244b; border-color: #c6cf5c">Delete</a>
+                        </td>
+                    </div>
                 </tr>
             </tbody>
         </table>

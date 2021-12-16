@@ -39,7 +39,7 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public void deleteStaff(Staff staff) {
-        staff.setStatus("Inactive");
+        staff.setStatus("INACTIVE");
         staffRepository.save(staff);
     }
 
