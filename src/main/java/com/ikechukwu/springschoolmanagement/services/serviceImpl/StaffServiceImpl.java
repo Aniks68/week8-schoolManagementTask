@@ -43,6 +43,7 @@ public class StaffServiceImpl implements StaffService {
         staffRepository.save(staff);
     }
 
+    @Override
     public List<Staff> getAllStaff() {
         return staffRepository.findAll();
     }

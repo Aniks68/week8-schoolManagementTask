@@ -37,11 +37,13 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.save(student);
     }
 
+    @Override
     public Student authenticate(String email, String password) {
         return studentRepository.findByEmailAndPassword(email, password)
                 .orElse(null);
     }
 
+    @Override
     public List<Student> getAll() {
         return studentRepository.findAll();
     }

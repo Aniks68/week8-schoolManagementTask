@@ -2,6 +2,8 @@ package com.ikechukwu.springschoolmanagement.services;
 
 import com.ikechukwu.springschoolmanagement.models.Staff;
 
+import java.util.List;
+
 public interface StaffService {
     Staff saveUser(Staff staff);
 
@@ -12,4 +14,6 @@ public interface StaffService {
     Staff getStaff(Long id);
 
     void deleteStaff(Staff staff);
+
+    List<Staff> getAllStaff();
 }
