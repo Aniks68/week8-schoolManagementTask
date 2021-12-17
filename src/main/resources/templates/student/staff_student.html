@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-<section style="display: flex; justify-content: space-between; width: max-content; height: 15%"><div class="url"><a href="/" style="color: rgba(205,214,92,0.98);">ECST</a></div> <div class="url"><a href="/logout" style="color: #CDD65C;">LOGOUT</a></div></section>
+<section style="display: flex; justify-content: space-between; width: max-content; height: 15%"><div class="url"><a href="/" style="color: rgba(205,214,92,0.98);">ECST</a></div> <div class="url"><a href="/staffLogout" style="color: #CDD65C;">LOGOUT</a></div></section>
 <div align="center">
 
   <h1 style="color: white">Student List</h1>
@@ -30,12 +30,14 @@
     <tbody>
     <tr th:each="student : ${students}">
       <div th:if="${student.getApplyStatus()} == 'Student'">
-        <td th:text="${student.getFirstname()}"></td>
-        <td th:text="${student.getLastname()}"></td>
-        <td th:text="${student.getGrade()}"></td>
-        <td th:text="${student.getSessionAverage()}"></td>
-        <td th:text="${student.getBehaviour()}"></td>
-        <td> <a th:href="@{/updateStudentDetails/{id}(id=${student.getId()})}" class="btn btn-primary" style="background-color: #c6cf5c; color: black">Update Details</a></td>
+        <div th:if="${student.getStatus()} == 'ACTIVE'">
+          <td th:text="${student.getFirstname()}"></td>
+          <td th:text="${student.getLastname()}"></td>
+          <td th:text="${student.getGrade()}"></td>
+          <td th:text="${student.getSessionAverage()}"></td>
+          <td th:text="${student.getBehaviour()}"></td>
+          <td> <a th:href="@{/updateStudentDetails/{id}(id=${student.getId()})}" class="btn btn-primary" style="background-color: #c6cf5c; color: black">Update Details</a></td>
+        </div>
       </div>
     </tr>
     </tbody>

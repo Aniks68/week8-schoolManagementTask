@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -19,13 +16,21 @@ public class Student extends Person{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String firstname;
+    @Column(nullable = false)
     private String lastname;
+    @Column(nullable = false)
     private String gender;
+    @Column(nullable = false)
     private String address;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String dob;
+    @Column(nullable = false)
     private String behaviour = "Fair";
     private double sessionAverage = 00.00;
     private Grade grade;

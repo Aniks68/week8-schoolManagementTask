@@ -23,6 +23,7 @@
       <th>Last Name</th>
       <th>Grade</th>
       <th>Session Average</th>
+      <th>School Fees</th>
       <th>Email</th>
       <th>Address</th>
       <th>Action</th>
@@ -36,6 +37,7 @@
           <td th:text="${applicant.getLastname()}"></td>
           <td th:text="${applicant.getGrade()}"></td>
           <td th:text="${applicant.getSessionAverage()}"></td>
+          <td th:text="${applicant.getGrade().getGradeFee()}"></td>
           <td th:text="${applicant.getEmail()}"></td>
           <td th:text="${applicant.getAddress()}"></td>
           <td> <a th:href="@{/updateStudentClass/{id}(id=${applicant.getId()})}" class="btn btn-primary" style="background-color: #c6cf5c; color: black">Promote</a>

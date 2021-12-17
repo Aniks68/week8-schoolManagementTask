@@ -1,8 +1,9 @@
 package com.ikechukwu.springschoolmanagement.controller;
 
-import com.ikechukwu.springschoolmanagement.enums.Position;
 import com.ikechukwu.springschoolmanagement.models.Staff;
 import com.ikechukwu.springschoolmanagement.models.Student;
+import com.ikechukwu.springschoolmanagement.services.StaffService;
+import com.ikechukwu.springschoolmanagement.services.StudentService;
 import com.ikechukwu.springschoolmanagement.services.serviceImpl.StaffServiceImpl;
 import com.ikechukwu.springschoolmanagement.services.serviceImpl.StudentServiceImpl;
 import org.springframework.stereotype.Controller;
@@ -13,12 +14,12 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class StaffController {
-    private final StaffServiceImpl staffServiceImpl;
-    private final StudentServiceImpl studentServiceImpl;
+    private final StudentService studentService;
+    private final StaffService staffService;
 
-    public StaffController(StaffServiceImpl staffServiceImpl, StudentServiceImpl studentServiceImpl) {
-        this.staffServiceImpl = staffServiceImpl;
-        this.studentServiceImpl = studentServiceImpl;
+    public StaffController(StudentService studentService, StaffService staffService) {
+        this.studentService = studentService;
+        this.staffService = staffService;
     }
 
     @GetMapping("/staffLogin")
@@ -35,7 +36,7 @@ public class StaffController {
     @PostMapping("/staffLogin")
     public String getStaffDashboard(@ModelAttribute Staff user, HttpSession session) {
         System.out.println("Login request: " + user);
-        Staff staff = staffServiceImpl.authenticate(user.getEmail(), user.getPassword());
+        Staff staff = staffService.authenticate(user.getEmail(), user.getPassword());
         System.out.println("Logging Staff: " + staff);
         if (staff == null) {
             return "login/staff_login";
@@ -56,14 +57,14 @@ public class StaffController {
     @GetMapping("/viewApplicants")
     public String getStaffApp(Model model) {
         Student applicant = new Student();
-        model.addAttribute("appList", studentServiceImpl.getAll());
+        model.addAttribute("appList", studentService.getAll());
         model.addAttribute("applicant", applicant);
         return "student/staff_applicant";
     }
 
     @GetMapping("/updateScore/{id}")
     public String getScorePage(@PathVariable (value = "id") Long id, Model model) {
-        Student applicant = studentServiceImpl.getStudent(id);
+        Student applicant = studentService.getStudent(id);
         if(applicant != null) {
             model.addAttribute("applicant", applicant);
             return "edit/app_edit";
@@ -73,11 +74,11 @@ public class StaffController {
 
     @PostMapping("/updateScore/{id}")
     public String getScoreUpdate(@PathVariable (value = "id") Long id, @RequestParam (value = "applyScore") int score) {
-        Student applicant = studentServiceImpl.getStudent(id);
+        Student applicant = studentService.getStudent(id);
 
         if (applicant != null && applicant.getApplyStatus().equals("Applicant")) {
             applicant.setApplyScore(score);
-            studentServiceImpl.saveStudent(applicant);
+            studentService.saveStudent(applicant);
             System.out.println("Score of " + applicant.getApplyScore() + " was added.");
         }
         return "redirect:/staffPage";
@@ -86,14 +87,14 @@ public class StaffController {
     @GetMapping("/viewStudents")
     public String getStaffStudents(Model model) {
         Student student = new Student();
-        model.addAttribute("students", studentServiceImpl.getAll());
+        model.addAttribute("students", studentService.getAll());
         model.addAttribute("student", student);
         return "student/staff_student";
     }
 
     @GetMapping("/updateStudentDetails/{id}")
     public String getDetailsUpdate(@PathVariable (value = "id") Long id, Model model) {
-        Student student = (Student) studentServiceImpl.getStudent(id);
+        Student student = (Student) studentService.getStudent(id);
         if(student != null) {
             model.addAttribute("student", student);
             return "edit/student_edit";
@@ -103,11 +104,11 @@ public class StaffController {
 
     @PostMapping("/updateStudentDetails/{id}")
     public String seeUpdates(@PathVariable (value = "id") Long id, @RequestParam (value = "sessionAverage") double average, @RequestParam (value = "behaviour") String behaviour) {
-        Student student = studentServiceImpl.getStudent(id);
+        Student student = studentService.getStudent(id);
         if (student != null) {
             student.setBehaviour(behaviour);
             student.setSessionAverage(average);
-            studentServiceImpl.saveStudent(student);
+            studentService.saveStudent(student);
         }
         return "redirect:/viewStudents";
     }

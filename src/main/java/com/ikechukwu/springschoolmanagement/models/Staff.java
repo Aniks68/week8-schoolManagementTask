@@ -15,15 +15,25 @@ public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String firstname;
+    @Column(nullable = false)
     private String lastname;
+    @Column(nullable = false)
     private String gender;
+    @Column(nullable = false)
     private String dob;
+    @Column(nullable = false)
     private String address;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private Position position;
+    @Column(nullable = false)
     private String jobDescription;
+    @Column(nullable = false)
     private int salary;
     private String status = "ACTIVE";
 
