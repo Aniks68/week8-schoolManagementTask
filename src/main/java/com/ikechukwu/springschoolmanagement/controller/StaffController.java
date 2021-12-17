@@ -1,5 +1,6 @@
 package com.ikechukwu.springschoolmanagement.controller;
 
+import com.ikechukwu.springschoolmanagement.enums.Position;
 import com.ikechukwu.springschoolmanagement.models.Staff;
 import com.ikechukwu.springschoolmanagement.models.Student;
 import com.ikechukwu.springschoolmanagement.services.serviceImpl.StaffServiceImpl;
@@ -22,7 +23,12 @@ public class StaffController {
 
     @GetMapping("/staffLogin")
     public String getStaffLoginPage() {
-        Staff admin = new Staff();
+//        Staff admin = new Staff();
+//        admin.setFirstname("Samuel"); admin.setLastname("Eldridge"); admin.setEmail("sam@el.com"); admin.setPosition(Position.VICE_PRINCIPAL);
+//        admin.setSalary(admin.getPosition().getSalary()); admin.setJobDescription(admin.getPosition().getJobDescriptor());
+//        admin.setAddress("Phase IV, Behind Blessed Chapel, Kubwa"); admin.setGender("Male"); admin.setPassword("12345");
+//        admin.setDob("1991-05-10"); staffServiceImpl.saveUser(admin);
+//        System.out.println("Admin: " + admin.getLastname() + " created successfully");
         return "login/staff_login";
     }
 
@@ -104,6 +110,12 @@ public class StaffController {
             studentServiceImpl.saveStudent(student);
         }
         return "redirect:/viewStudents";
+    }
+
+    @GetMapping("/staffLogout")
+    public String logoutStaff(HttpSession session) {
+        session.invalidate();
+        return "login/staff_login";
     }
 
     private boolean isAdmin(Staff staff) {

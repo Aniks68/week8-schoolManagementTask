@@ -31,6 +31,8 @@ public class StudentController implements ErrorController {
         Student student = studentServiceImpl.authenticate(user.getEmail(), user.getPassword());
         if((student != null) && (student.getApplyStatus().equals("Student"))) {
             session.setAttribute("user", student);
+            model.addAttribute("studName", student.getFirstname() + " " + student.getLastname());
+            model.addAttribute("student", student);
             return "student/student_page";
         }
         model.addAttribute("errorMessage", "Sorry, you're not a student");
@@ -74,6 +76,8 @@ public class StudentController implements ErrorController {
         Student applicant = studentServiceImpl.authenticate(user.getEmail(), user.getPassword());
         if ((applicant != null) && (applicant.getApplyStatus().equals("Applicant"))) {
             session.setAttribute("user", applicant);
+            model.addAttribute("appName", applicant.getFirstname() + " " + applicant.getLastname());
+            model.addAttribute("applicant", applicant);
             return "student/app_page";
         }
         model.addAttribute("errorMessage", "Sorry, you're not an applicant");
@@ -86,6 +90,12 @@ public class StudentController implements ErrorController {
     public String logoutUser(HttpSession session) {
         session.invalidate();
         return "login/student_login";
+    }
+
+    @GetMapping("/appLogout")
+    public String logoutApp(HttpSession session) {
+        session.invalidate();
+        return "login/applicant_login";
     }
 
     @RequestMapping("/error")

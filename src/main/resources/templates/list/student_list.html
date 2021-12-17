@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-<section style="display: flex; justify-content: space-between; width: max-content; height: 15%"><div class="url"><a href="/" style="color: rgba(205,214,92,0.98);">ECST</a></div> <div class="url"><a href="/logout" style="color: #CDD65C;">LOGOUT</a></div></section>
+<section style="display: flex; justify-content: space-between; width: max-content; height: 15%"><div class="url"><a href="/" style="color: rgba(205,214,92,0.98);">ECST</a></div> <div class="url"><a href="/staffLogout" style="color: #CDD65C;">LOGOUT</a></div></section>
 <div align="center">
 
   <h1 style="color: white">Student List</h1>
@@ -30,17 +30,19 @@
     </thead>
     <tbody>
     <tr th:each="applicant : ${appList}">
-      <div th:if="${applicant.getApplyStatus()} == 'Student' && ${applicant.getStatus()} != 'INACTIVE'">
-        <td th:text="${applicant.getFirstname()}"></td>
-        <td th:text="${applicant.getLastname()}"></td>
-        <td th:text="${applicant.getGrade()}"></td>
-        <td th:text="${applicant.getSessionAverage()}"></td>
-        <td th:text="${applicant.getEmail()}"></td>
-        <td th:text="${applicant.getAddress()}"></td>
-        <td> <a th:href="@{/updateStudentClass/{id}(id=${applicant.getId()})}" class="btn btn-primary" style="background-color: #c6cf5c; color: black">Promote</a>
-          <a th:href="@{/deleteApplicant/{id}(id=${applicant.getId()})}" class="btn btn-danger" style="background-color: #0d244b; border-color: #c6cf5c">Delete</a>
-          <div th:if="${applicant.getBehaviour()} == 'Terrible'"><a th:href="@{/deleteApplicant/{id}(id=${applicant.getId()})}" class="btn btn-danger" style="color: black; background-color: rgba(214,41,56,0.98); border-color: rgba(214,41,56,0.98)">Expel</a></div>
-        </td>
+      <div th:if="${applicant.getApplyStatus()} == 'Student'">
+        <div th:if="${applicant.getStatus()} != 'INACTIVE'">
+          <td th:text="${applicant.getFirstname()}"></td>
+          <td th:text="${applicant.getLastname()}"></td>
+          <td th:text="${applicant.getGrade()}"></td>
+          <td th:text="${applicant.getSessionAverage()}"></td>
+          <td th:text="${applicant.getEmail()}"></td>
+          <td th:text="${applicant.getAddress()}"></td>
+          <td> <a th:href="@{/updateStudentClass/{id}(id=${applicant.getId()})}" class="btn btn-primary" style="background-color: #c6cf5c; color: black">Promote</a>
+            <a th:href="@{/deleteApplicant/{id}(id=${applicant.getId()})}" class="btn btn-danger" style="background-color: #0d244b; border-color: #c6cf5c">Delete</a>
+            <div th:if="${applicant.getBehaviour()} == 'Terrible'"><a th:href="@{/deleteApplicant/{id}(id=${applicant.getId()})}" class="btn btn-danger" style="color: black; background-color: rgba(214,41,56,0.98); border-color: rgba(214,41,56,0.98)">Expel</a></div>
+          </td>
+        </div>
       </div>
     </tr>
     </tbody>
