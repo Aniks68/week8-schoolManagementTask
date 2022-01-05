@@ -145,13 +145,13 @@ public class AdminController {
                  newGrade = Grade.GRADE6;
              }
              student.setGrade(newGrade);
+             student.setSessionAverage(0.00);
 
              System.out.println("New Grade: " + student.getGrade());
 
              student.setGradeFee(student.getGrade().getGradeFee());
              student.setApplyStatus("Student");
              studentService.saveStudent(student);
-
          }
         return "redirect:/studentList";
     }
