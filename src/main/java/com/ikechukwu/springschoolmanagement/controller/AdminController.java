@@ -158,7 +158,7 @@ public class AdminController {
     @GetMapping("/registerStudent/{id}")
     public String updateAppStatus(@PathVariable(value = "id") Long id) {
         Student applicant = studentService.getStudent(id);
-        if(applicant != null && applicant.getApplyStatus().equals("Applicant")) {
+        if(applicant != null && applicant.getApplyStatus().equals("Applicant") && applicant.getApplyScore() >= 55) {
             applicant.setApplyStatus("Student");
             studentService.saveStudent(applicant);
         }
