@@ -130,6 +130,7 @@ public class AdminController {
              if (grade.equals(Grade.GRADE6)) {
                  System.out.println("You're a graduate now!");
                  studentService.deleteStudent(student);
+                 return "redirect:/studentList";
              }
 
              if(grade.equals(Grade.GRADE1)) {
