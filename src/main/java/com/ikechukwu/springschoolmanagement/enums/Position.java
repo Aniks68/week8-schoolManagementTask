@@ -14,7 +14,7 @@ public enum Position {
     TEACHER(55000, "Subject teaching");
 
     private final int salary;
-    private String jobDescriptor;
+    private final String jobDescriptor;
 
     Position(int salary, String jobDescriptor) {
         this.salary = salary;
